@@ -10,6 +10,7 @@
             "includePath": [
                 "d:/Documents/GitHub/lucasfrct/idiot/include",
                 "d:/Documents/GitHub/lucasfrct/idiot/src",
+                "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/Servo/src",
                 "d:/Documents/GitHub/lucasfrct/idiot/.pio/libdeps/esp12e/Adafruit PWM Servo Driver Library",
                 "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/Wire",
                 "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include",
@@ -42,7 +43,6 @@
                 "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/SDFS/src",
                 "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/SPI",
                 "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/SPISlave/src",
-                "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/Servo/src",
                 "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/SoftwareSerial/src",
                 "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/TFT_Touch_Shield_V2",
                 "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/Ticker/src",
@@ -58,6 +58,7 @@
                 "path": [
                     "d:/Documents/GitHub/lucasfrct/idiot/include",
                     "d:/Documents/GitHub/lucasfrct/idiot/src",
+                    "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/Servo/src",
                     "d:/Documents/GitHub/lucasfrct/idiot/.pio/libdeps/esp12e/Adafruit PWM Servo Driver Library",
                     "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/Wire",
                     "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include",
@@ -90,7 +91,6 @@
                     "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/SDFS/src",
                     "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/SPI",
                     "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/SPISlave/src",
-                    "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/Servo/src",
                     "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/SoftwareSerial/src",
                     "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/TFT_Touch_Shield_V2",
                     "C:/Users/DEVELOPMENT/.platformio/packages/framework-arduinoespressif8266/libraries/Ticker/src",
