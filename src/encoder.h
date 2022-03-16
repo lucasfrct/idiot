@@ -1,53 +1,53 @@
 #include "Arduino.h"
 
-class Encoder 
+class Encoder
 {
-    public:
-        Encoder(int clk, int dt, int sw);      
-        
-        boolean btnHold();
-        boolean btnPress();
-        boolean btnDown();
-        boolean btnUp();
-        
-        String direction();
-        String directionToggle();
+public:
+    Encoder(int clk, int dt, int sw);
 
-        void mode(String mode);
+    boolean btnHold();
+    boolean btnPress();
+    boolean btnDown();
+    boolean btnUp();
 
-        int start(int start);
-        int end(int end);
+    String direction();
+    String directionToggle();
 
-        int percent();
-        int angle();
-        int pulde();
+    void mode(String mode);
 
-        int abs();
+    int start(int start);
+    int end(int end);
 
-        int value();
-        int sweep();  
+    int percent();
+    int angle();
+    int pulde();
 
-        void event(boolean transition);
-        void debug();
+    int abs();
 
-    private:
-        int _clk;
-        int _dt;
-        int _sw;
+    int value();
+    int sweep();
 
-        boolean _trasition = false;
+    void event(boolean transition);
+    void debug();
 
-        int _counterStart   = 0;
-        int _counterEnd     = 100;
-        int _counter        = 0;
+private:
+    int _clk;
+    int _dt;
+    int _sw;
 
-        int _btnState   = LOW;
-        unsigned long _btnLastPress = 0;
-        
-        int _clkStateCurrent;
-        int _clkStateLast;
-        
-        String _directionCurrent = "";
-        boolean _directionToggle = false;
-        String _directions[2] = { "CCW", "CW" };
+    boolean _trasition = false;
+
+    int _counterStart = 0;
+    int _counterEnd = 100;
+    int _counter = 0;
+
+    int _btnState = LOW;
+    unsigned long _btnLastPress = 0;
+
+    int _clkStateCurrent;
+    int _clkStateLast;
+
+    String _directionCurrent = "";
+    boolean _directionToggle = false;
+    String _directions[2] = {"CCW", "CW"};
 };
