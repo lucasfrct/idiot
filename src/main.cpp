@@ -1,10 +1,10 @@
-#include <Arduino.h>
+// #include <Arduino.h>
 
 // #include <Wire.h>
 // #include <Adafruit_PWMServoDriver.h>
 
-#include <encoder.h>
-#include <arm.h>
+// #include <encoder.h>
+// #include <arm.h>
 
 // #define PWM_FREQ 50; //
 
@@ -32,11 +32,11 @@
 // // numero de revolução
 // unsigned int REVOLUTIONS[16] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
-void setup() {
-    Serial.begin(9600);
+// void setup() {
+//     Serial.begin(9600);
     
-    delay(1);
-    Serial.println("16 channel PWM - PCA9685");
+//     delay(1);
+//     Serial.println("16 channel PWM - PCA9685");
 
     // pinMode(PCA9685, OUTPUT);
 
@@ -44,7 +44,7 @@ void setup() {
     // servos.setPWMFreq(50);
 
     // digitalWrite(PCA9685, !DISABLE);
-}
+// }
 
 // // setServoPulse(0, 0.001) is a ~1 millisecond pulse width!
 // void setServoPulse(uint8_t servo, double pulse) {
@@ -81,10 +81,10 @@ void setup() {
 //     };
 // };
 
-Encoder en = Encoder(D5, D6, D7);
-Arm arm = Arm(D8);
+// Encoder en = Encoder(D5, D6, D7);
+// Arm arm = Arm(D8);
 
-void loop() {
-    en.sweep();
-    // arm.ServoPulse(0, 0.0015);
-};
+// void loop() {
+//     en.sweep();
+//     // arm.ServoPulse(0, 0.0015);
+// };

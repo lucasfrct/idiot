@@ -1,0 +1,3 @@
+blink_new KEYWORD1
+blk_new KEYWORD2
+blk_led KEYWORD2
