@@ -1,19 +1,14 @@
+ #include "src/ControlEncoder.h"
+ 
+ControlEncoder en(D5, D6, D7);
 
+ void setup() {
+   Serial.begin (9600);
+ } 
 
-//#include "src/blink_new.h"
-#include "src/notify.h"
+ void loop() {
 
-
-//blk_n led1(LED_BUILTIN);
-notify led2(LED_BUILTIN);
-
-// the setup function runs once when you press reset or power the board
-void setup() {
-  //
-}
-
-// the loop function runs over and over again forever
-void loop() {
-//  led1.blk_led(500);
-  led2.run(100);
-}
+  en.step(5);
+  en.debug();
+ 
+ }

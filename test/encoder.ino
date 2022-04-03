@@ -1,72 +1,45 @@
-// Rotary Encoder Inputs
-#define CLK D5
-#define DT D6
-#define SW D7
+ 
+ const int pinoCLK = D5; //PINO DIGITAL (CLK)
+ const int pinoDT = D6;  //PINO DIGITAL (DT)
+ const int pinoSW = D7; //PINO DIGITAL (SW)
+ 
+ int contadorPos = 0;  //CONTADOR DE POSIÇÕES DO ENCODER
+ int ultPosicao; //REGISTRA A ÚLTIMA POSIÇÃO DO ENCODER
+ int leituraCLK; //VARIÁVEL PARA ARMAZENAR LEITURA DO PINO CLK
+ boolean bCW; //VARIÁVEL DE CONTROLE DO SENTIDO (HORÁRIO / ANTI-HORÁRIO)
 
-int counter = 0;
-int currentStateCLK;
-int lastStateCLK;
-String currentDir ="";
-unsigned long lastButtonPress = 0;
+ void setup() {
+   Serial.begin (9600); //INICIALIZA A SERIAL
+   pinMode (pinoCLK,INPUT); //DEFINE O PINO COMO ENTRADA
+   pinMode (pinoDT,INPUT); //DEFINE O PINO COMO ENTRADA
+   pinMode (pinoSW,INPUT_PULLUP); //DEFINE O PINO COMO ENTRADA / "_PULLUP" É PARA ATIVAR O RESISTOR INTERNO
+  //DO ARDUINO PARA GARANTIR QUE NÃO EXISTA FLUTUAÇÃO ENTRE 0 (LOW) E 1 (HIGH)
+   ultPosicao = digitalRead(pinoCLK); //VARIÁVEL RECEBE A LEITURA DO PINO CLK  
+ } 
 
-void setup() {
-  
-  // Set encoder pins as inputs
-  pinMode(CLK,INPUT);
-  pinMode(DT,INPUT);
-  pinMode(SW, INPUT_PULLUP);
-
-  // Setup Serial Monitor
-  Serial.begin(9600);
-
-  // Read the initial state of CLK
-  lastStateCLK = digitalRead(CLK);
-}
-
-void loop() {
-  
-  // Read the current state of CLK
-  currentStateCLK = digitalRead(CLK);
-
-  // If last and current state of CLK are different, then pulse occurred
-  // React to only 1 state change to avoid double count
-  if (currentStateCLK != lastStateCLK  && currentStateCLK == 1){
-
-    // If the DT state is different than the CLK state then
-    // the encoder is rotating CCW so decrement
-    if (digitalRead(DT) != currentStateCLK) {
-      counter --;
-      currentDir ="CCW";
-    } else {
-      // Encoder is rotating CW so increment
-      counter ++;
-      currentDir ="CW";
-    }
-
-    Serial.print("Direction: ");
-    Serial.print(currentDir);
-    Serial.print(" | Counter: ");
-    Serial.println(counter);
-  }
-
-  // Remember last CLK state
-  lastStateCLK = currentStateCLK;
-
-  // Read the button state
-  int btnState = digitalRead(SW);
-
-  //If we detect LOW signal, button is pressed
-  if (btnState == LOW) {
-    //if 50ms have passed since last LOW pulse, it means that the
-    //button has been pressed, released and pressed again
-    if (millis() - lastButtonPress > 50) {
-      Serial.println("Button pressed!");
-    }
-
-    // Remember last button press event
-    lastButtonPress = millis();
-  }
-
-  // Put in a slight delay to help debounce the reading
-  delay(1);
-}
+ void loop() { 
+   leituraCLK = digitalRead(pinoCLK); //VARIÁVEL RECEBE A LEITURA DO PINO CLK 
+   if (leituraCLK != ultPosicao){ //SE VALOR DA VARIÁVEL FOR DIFERENTE DO VALOR DE "ultPosicao", FAZ
+     if (digitalRead(pinoDT) != leituraCLK) { //SE LEITURA DO PINO FOR DIFERENTE DA LEITURA DE "leituraCLK",
+      //SIGNIFICA QUE O EIXO ESTÁ SENDO GIRADO NO SENTIDO HORÁRIO E FAZ
+       contadorPos++; //INCREMENTA CONTAGEM DA VARIÁVEL EM +1
+       bCW = true; //VARIÁVEL BOOLEANA RECEBE VERDADEIRO (SENTIDO HORÁRIO)
+     } else { //SENÃO, SIGNIFICA QUE O EIXO ESTÁ SENDO GIRADO NO SENTIDO ANTI-HORÁRIO E FAZ
+       bCW = false; //VARIÁVEL BOOLEANA RECEBE FALSO (SENTIDO ANTI-HORÁRIO)
+       contadorPos--; //DECREMENTA CONTAGEM DA VARIÁVEL EM -1
+     }
+     Serial.print("Giro no "); //IMPRIME O TEXTO NA SERIAL
+     if (bCW){ //SE VARIÁVEL FOR IGUAL A VERDADEIRO, FAZ
+       Serial.print("sentido horário"); //IMPRIME O TEXTO NA SERIAL
+     }else{ //SENÃO, FAZ
+       Serial.print("sentido anti-horário"); //IMPRIME O TEXTO NA SERIAL
+     }
+     Serial.print(" / Posição do encoder: "); //IMPRIME O TEXTO NA SERIAL
+     Serial.println(contadorPos); //IMPRIME NO MONITOR SERIAL A POSIÇÃO ATUAL DO ENCODER
+   }
+   if(digitalRead(pinoSW) == LOW){ //SE LEITURA DO PINO FOR IGUAL A LOW, FAZ
+       Serial.println ("Botão pressionado"); //IMPRIME O TEXTO NA SERIAL
+       delay(200); //INTERVALO DE 200 MILISSEGUNDOS
+   }
+   ultPosicao = leituraCLK; //VARIÁVEL RECEBE O VALOR DE "leituraCLK"
+ }
