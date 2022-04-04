@@ -6,41 +6,53 @@ Notify::Notify(int pin)
 {
     _pin = pin;
     pinMode(_pin, OUTPUT);
+    digitalWrite(_pin, LOW);
 };
 
 void Notify::run()
 {  
-    this->blink(50);
+    this->event(false);
 };
 
-void Notify::blink(int ms) 
+bool Notify::event(bool transition)
 {
-    _blink_ms = ms;
-    _blink_currentTime = millis();
+    _transition = transition;
+    return _transition;
+}
 
-    if(_blink_currentTime - _blink_deferTime > _blink_ms) {
-        _blink_deferTime = _blink_currentTime;
-        digitalWrite(_pin, !digitalRead(_pin));
-    };
-};
-
-void Notify::event(int ms) 
+bool Notify::change(void (*func)(bool))
 {
-    _event_ms = ms;
-    
-    _event_currentTime = millis();
-    
-    if(!_event_state) {
-        digitalWrite(_pin, HIGH);
+    if(_transition) {
+        func(bool(_blinkCurrentState));
     }
+}
 
-    if(_event_currentTime - _event_targetTime > _event_ms) {
-        _event_targetTime = _event_currentTime;
-        _event_state = !_event_state;
+bool Notify::blink(int ms) 
+{
+    _blinkMs = ms;
+    _blinkCurrentTime = millis();
+
+    if(_blinkCurrentTime - _blinkDeferTime > _blinkMs) {
+
+        // pegar o stado na porta
+        _blinkDeferState = digitalRead(_pin);
+
+        // inverte o estado 
+        _blinkCurrentState = !_blinkDeferState;
+
+        // atualiza o estado da porta
+        digitalWrite(_pin, _blinkCurrentState);
+
+        _blinkDeferTime = _blinkCurrentTime;
+
+        // notifica que houve uma event
+        this->event(true);
     };
 
-    if(_event_state) {
-        this->run();
-    }; 
-          
+    return bool(_blinkCurrentState);
 };
+
+bool Notify::notify() 
+{
+   return this->blink(20);
+}

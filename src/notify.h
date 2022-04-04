@@ -1,26 +1,30 @@
 
-#ifndef notify_led
-#define notify_led
-
 #include "Arduino.h"
 
 class Notify
 {
     public:
-        notify(int pin);
+        Notify(int pin);
         void run();
-        void blink(int ms);
-        void event(int ms);
+        bool event(bool transition);
+        bool change(void (*func)(bool));
+        bool blink(int ms);
+        bool notify();
 
     private:
         int _pin;
-        int _blink_ms;
-        unsigned long _blink_currentTime;
-        long _blink_deferTime = 0;
-        int _event_ms;
-        unsigned long _event_currentTime;
-        long _event_targetTime = 0;
-        bool _event_state = false;
-};
+        
+        bool _transition = false;
 
-#endif
+        int _blinkMs;
+        
+        unsigned long _blinkCurrentTime;
+        unsigned long _blinkDeferTime = 0;
+
+        uint8_t _blinkDeferState;
+        uint8_t _blinkCurrentState;
+
+        unsigned long _notifyCurrentTime;
+        unsigned long _notifyDeferTime = 0;
+
+};
